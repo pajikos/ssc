@@ -1,0 +1,4 @@
+ssc
+===
+
+Selenium Screenshot Comparator
