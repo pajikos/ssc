@@ -19,19 +19,20 @@ public final class Screenshot {
 	private String browserVersion;
 	private byte[] imageData;
 	private Date captureDate;
-	
+
 	/**
 	 * Dummy constructor
 	 */
-	public Screenshot(){
-		//Do nothing
+	public Screenshot() {
+		// Do nothing
 	}
-	
+
 	/**
 	 * Clone constructor
+	 * 
 	 * @param screenshot
 	 */
-	public Screenshot(Screenshot screenshot){
+	public Screenshot(Screenshot screenshot) {
 		this.id = screenshot.getId();
 		this.platform = screenshot.getPlatform();
 		this.browserName = screenshot.getBrowserName();
@@ -39,8 +40,6 @@ public final class Screenshot {
 		this.imageData = screenshot.getImageData();
 		this.captureDate = screenshot.getCaptureDate();
 	}
-	
-	
 
 	/**
 	 * @return the id
@@ -121,8 +120,9 @@ public final class Screenshot {
 		return captureDate;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -130,16 +130,18 @@ public final class Screenshot {
 		return "Screenshot [id=" + id + ", platform=" + platform + ", browserName=" + browserName + ", browserVersion="
 				+ browserVersion + ", captureTime=" + captureDate + "]";
 	}
-	
 
 	/**
-	 * @param captureDate the captureDate to set
+	 * @param captureDate
+	 *            the captureDate to set
 	 */
 	public void setCaptureDate(Date captureDate) {
 		this.captureDate = captureDate;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -154,7 +156,9 @@ public final class Screenshot {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -193,11 +197,5 @@ public final class Screenshot {
 			return false;
 		return true;
 	}
-
-	
-
-
-	
-	
 
 }

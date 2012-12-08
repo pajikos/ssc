@@ -2,20 +2,22 @@ package cz.vse.kit.ssc;
 
 import static org.junit.Assert.fail;
 
-import java.net.URL;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Compare {@link Screenshot} example
+ * @author pavel.sklenar
+ *
+ */
 public class UseCase1 {
 	private WebDriver driver;
 	private String baseUrl;
@@ -50,7 +52,6 @@ public class UseCase1 {
 		List<Screenshot> lastTwoScreenshotById = compatibilityTester.getScreenshotRepository().getLastTwoScreenshotById("home");
 		compatibilityTester.saveScreenshotToFile(compatibilityTester.compare(lastTwoScreenshotById.get(0),lastTwoScreenshotById.get(1), 7), PATH_TO_SAVE, "same_browser");
 		compatibilityTester.saveScreenshotToFile(compatibilityTester.compositeDifference(lastTwoScreenshotById.get(0),lastTwoScreenshotById.get(1)), PATH_TO_SAVE, "diffe");
-		//System.err.println(compatibilityTester.computeSimilarity(lastTwoScreenshotById.get(0), lastTwoScreenshotById.get(1)));
 	}
 
 	@After

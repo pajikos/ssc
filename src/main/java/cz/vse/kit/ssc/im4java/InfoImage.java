@@ -17,6 +17,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
 import cz.vse.kit.ssc.utils.DataConvertUtils;
 
 /**
+ * Adapter for info command from ImageMagick library
  * @author pavel.sklenar Class InfoImage is based on class {@link Info} Getter methods
  *         are the same.
  */

@@ -10,7 +10,7 @@ import cz.vse.kit.ssc.im4java.CompositeImage;
 import cz.vse.kit.ssc.im4java.ConvertImage;
 import cz.vse.kit.ssc.repository.Screenshot;
 
-public class ImageScreenComparator {
+class ImageScreenComparator {
 
 	private ImageSizeComparator imageSizeComparator;
 
@@ -43,10 +43,11 @@ public class ImageScreenComparator {
 			throw new Im4JavaCommandException("Cannot process a compare image command on the im4java.", e);
 		}
 	}
-	
+
 	/**
-	 * Composite difference of two screenshots
-	 * If result image is to dark, autoLevel=true may be set
+	 * Composite difference of two screenshots If result image is to dark,
+	 * autoLevel=true may be set
+	 * 
 	 * @param baseScreenshot
 	 * @param otherScreenshot
 	 * @param autoLevel

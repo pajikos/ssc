@@ -1,6 +1,6 @@
 package cz.vse.kit.ssc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -14,6 +14,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Example of the numeric comparing
+ * @author pavel.sklenar
+ *
+ */
 public class NumericCompare {
 	private WebDriver driver;
 	private String baseUrl;

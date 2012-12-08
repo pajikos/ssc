@@ -14,6 +14,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
 
+/**
+ * Example test with running selenium in cloud
+ * @author pavel.sklenar
+ *
+ */
 public class CloudTest {
 	private WebDriver driver;
 	private String baseUrl;

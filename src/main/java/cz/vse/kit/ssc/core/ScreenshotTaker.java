@@ -21,7 +21,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
  * @author pavel.sklenar
  * 
  */
-public final class ScreenshotTaker {
+final class ScreenshotTaker {
 	private static final Logger LOG = LoggerFactory.getLogger(ScreenshotTaker.class);
 
 	protected ScreenshotTaker() {

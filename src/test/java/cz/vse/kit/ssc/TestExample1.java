@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.Screenshot;
@@ -70,8 +69,6 @@ public class TestExample1 {
 		Screenshot screenshot = repository.getLastScreenshotByExample(queryScreenshot);
 		List<Screenshot> lastTwoScreens = repository.getLastTwoScreenshotsByExample(queryScreenshot);
 		List<Screenshot> listOfScreens = repository.getScreenshotsByExample(queryScreenshot);
-		
-		System.err.println(screenshot.getBrowserName());
 	}
 	
 	/**
@@ -104,7 +101,7 @@ public class TestExample1 {
 		driver.findElement(By.linkText("Profil školy")).click();
 		Screenshot profilScreenshot = compatibilityTester.takeScreenshotAndSaveToRepo("profil", driver);
 		
-		float similarity = compatibilityTester.computeSimilarity(homeScreenshot, profilScreenshot);
+		compatibilityTester.computeSimilarity(homeScreenshot, profilScreenshot);
 		
 		
 	}

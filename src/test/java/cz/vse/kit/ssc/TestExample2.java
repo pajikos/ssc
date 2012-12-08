@@ -11,7 +11,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
+import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Taking {@link Screenshot} example
+ * @author Pajik
+ *
+ */
 public class TestExample2 {
 	private WebDriver driver;
 	private String baseUrl;
@@ -27,7 +33,7 @@ public class TestExample2 {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void takeScreenshot() throws Exception {
 		driver.get(baseUrl + "/");
 		compatibilityTester.takeScreenshot("home", driver);
 	}

@@ -17,6 +17,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.ScreenshotRepository;
 
+/**
+ * Example test with spring
+ * 
+ * @author pavel.sklenar
+ * 
+ */
 @ContextConfiguration("file:src/test/resources/testContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringTest {
@@ -37,11 +43,11 @@ public class SpringTest {
 	}
 
 	@Test
-	public void test() {
+	public void saveScreenshotToFile() {
 		driver.get(baseUrl + "/");
 		compatibilityTester.takeScreenshotAndSaveToRepo("springTest", driver);
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
@@ -52,7 +58,8 @@ public class SpringTest {
 	}
 
 	/**
-	 * @param repository the repository to set
+	 * @param repository
+	 *            the repository to set
 	 */
 	public void setRepository(ScreenshotRepository repository) {
 		this.repository = repository;

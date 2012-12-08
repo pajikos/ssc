@@ -42,69 +42,80 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		setMaxLengthOfFilename(maxLengthOfFilename);
 	}
 
-	/**
-	 * Save {@link Screenshot} to the {@link File}
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cz.vse.kit.ssc.repository.ScreenshotRepository#saveScreenshot(cz.vse.
+	 * kit.ssc.repository.Screenshot)
 	 */
 	public synchronized void saveScreenshot(Screenshot screenshot) {
 		SscFileUtils.saveScreenshotToFile(screenshot, path);
 	}
-	
-	
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cz.vse.kit.ssc.core.repository.ScreenshotRepository#getScreenshotById()
+	 * @see
+	 * cz.vse.kit.ssc.core.repository.ScreenshotRepository#getScreenshotById()
 	 */
 	@Override
 	public List<Screenshot> getScreenshotsByExample(Screenshot screenshot) {
 		List<Screenshot> result = new ArrayList<Screenshot>();
 		File[] filesByScreenshotExample = getFilesByScreenshotExample(screenshot);
-		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0){
-			if (LOG.isDebugEnabled()){
+		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0) {
+			if (LOG.isDebugEnabled()) {
 				LOG.debug("No Screenshot was found");
 			}
 			return result;
 		}
 		Arrays.sort(filesByScreenshotExample, SscFilenameUtils.SCREENSHOT_CREATION_FILENAME_COMP_DESC);
-		
+
 		for (int i = 0; i < filesByScreenshotExample.length; i++) {
 			result.add(loadScreenshot(filesByScreenshotExample[i]));
 		}
 		return result;
 	}
-	
-	public Screenshot getLastScreenshotByExample(Screenshot screenshot){
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cz.vse.kit.ssc.repository.ScreenshotRepository#getLastScreenshotByExample
+	 * (cz.vse.kit.ssc.repository.Screenshot)
+	 */
+	public Screenshot getLastScreenshotByExample(Screenshot screenshot) {
 		File[] filesByScreenshotExample = getFilesByScreenshotExample(screenshot);
-		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0){
-			if (LOG.isDebugEnabled()){
+		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0) {
+			if (LOG.isDebugEnabled()) {
 				LOG.debug("No Screenshot was found");
 			}
 			return null;
 		}
-		Arrays.sort(filesByScreenshotExample, SscFilenameUtils.SCREENSHOT_CREATION_FILENAME_COMP_DESC);	
+		Arrays.sort(filesByScreenshotExample, SscFilenameUtils.SCREENSHOT_CREATION_FILENAME_COMP_DESC);
 		return loadScreenshot(filesByScreenshotExample[0]);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cz.vse.kit.ssc.core.repository.ScreenshotRepository#getLastTwoScreenshotsByExample
+	 * @see cz.vse.kit.ssc.core.repository.ScreenshotRepository#
+	 * getLastTwoScreenshotsByExample
 	 */
 	@Override
 	public List<Screenshot> getLastTwoScreenshotsByExample(Screenshot screenshot) {
 		List<Screenshot> result = new ArrayList<Screenshot>();
 		File[] filesByScreenshotExample = getFilesByScreenshotExample(screenshot);
-		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0){
-			if (LOG.isDebugEnabled()){
+		if (filesByScreenshotExample == null || filesByScreenshotExample.length == 0) {
+			if (LOG.isDebugEnabled()) {
 				LOG.debug("No Screenshot was found.");
 			}
 			return result;
 		}
 		Arrays.sort(filesByScreenshotExample, SscFilenameUtils.SCREENSHOT_CREATION_FILENAME_COMP_DESC);
 		result.add(loadScreenshot(filesByScreenshotExample[0]));
-		if (filesByScreenshotExample.length == 1){
-			if (LOG.isDebugEnabled()){
+		if (filesByScreenshotExample.length == 1) {
+			if (LOG.isDebugEnabled()) {
 				LOG.debug("Only one Screenshot found in method getLastTwoScreenshotsByExample.");
 			}
 		} else {
@@ -112,13 +123,12 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		}
 		return result;
 	}
-	
-	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cz.vse.kit.ssc.core.repository.ScreenshotRepository#getScreenshotById()
+	 * @see
+	 * cz.vse.kit.ssc.core.repository.ScreenshotRepository#getScreenshotById()
 	 */
 	@Override
 	public Screenshot getLastScreenshotById(String id) {
@@ -126,22 +136,41 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		exampleScreenshot.setId(id);
 		return getLastScreenshotByExample(exampleScreenshot);
 	}
-	
-	
-	public List<Screenshot> getLastTwoScreenshotById(String id){
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cz.vse.kit.ssc.repository.ScreenshotRepository#getLastTwoScreenshotById
+	 * (java.lang.String)
+	 */
+	public List<Screenshot> getLastTwoScreenshotById(String id) {
 		Screenshot exampleScreenshot = new Screenshot();
 		exampleScreenshot.setId(id);
 		return getLastTwoScreenshotsByExample(exampleScreenshot);
-		
+
 	}
-	
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cz.vse.kit.ssc.repository.ScreenshotRepository#getScreenshotsById(java
+	 * .lang.String)
+	 */
 	public List<Screenshot> getScreenshotsById(String id) {
 		Screenshot screenshot = new Screenshot();
 		screenshot.setId(id);
 		return getScreenshotsByExample(screenshot);
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cz.vse.kit.ssc.repository.ScreenshotRepository#
+	 * getLastScreenshotByDesiredCapabilities
+	 * (org.openqa.selenium.remote.DesiredCapabilities, java.lang.String)
+	 */
 	public Screenshot getLastScreenshotByDesiredCapabilities(DesiredCapabilities desiredCapabilities, String id) {
 		Screenshot screenshot = new Screenshot();
 		screenshot.setBrowserName(desiredCapabilities.getBrowserName());
@@ -151,21 +180,23 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		return getLastScreenshotByExample(screenshot);
 	}
 
-	/**
-	 * Get {@link Screenshot} by desired capabilities
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param desiredCapabilities
-	 * @return
+	 * @see cz.vse.kit.ssc.repository.ScreenshotRepository#
+	 * getScreenshotsByDesiredCapabilities
+	 * (org.openqa.selenium.remote.DesiredCapabilities)
 	 */
 	public List<Screenshot> getScreenshotsByDesiredCapabilities(DesiredCapabilities desiredCapabilities) {
 		return getScreenshotsByDesiredCapabilities(desiredCapabilities, null);
 	}
-	
-	/**
-	 * Get {@link Screenshot} by desired capabilities and by id
+
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param desiredCapabilities
-	 * @return
+	 * @see cz.vse.kit.ssc.repository.ScreenshotRepository#
+	 * getScreenshotsByDesiredCapabilities
+	 * (org.openqa.selenium.remote.DesiredCapabilities, java.lang.String)
 	 */
 	public List<Screenshot> getScreenshotsByDesiredCapabilities(DesiredCapabilities desiredCapabilities, String id) {
 		Screenshot screenshot = new Screenshot();
@@ -198,8 +229,6 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		}
 	}
 
-	
-
 	/**
 	 * Load the {@link Screenshot} object from the {@link File}
 	 * 
@@ -211,16 +240,16 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 		resultScreenshot.setImageData(SscFilenameUtils.readByteArrayFromFile(screenshotFile));
 		return resultScreenshot;
 	}
-	
+
 	/**
 	 * Load files by screenshot
+	 * 
 	 * @param screenshot
 	 * @return
 	 */
 	private File[] getFilesByScreenshotExample(Screenshot screenshot) {
 		File dir = new File(path);
-		return dir.listFiles(new ScreenshotFileFilter(screenshot));	
+		return dir.listFiles(new ScreenshotFileFilter(screenshot));
 	}
-
 
 }

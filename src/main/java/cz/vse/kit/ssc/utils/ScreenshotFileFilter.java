@@ -13,6 +13,7 @@ import org.openqa.selenium.Platform;
 import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
+ * Filter for searching screenshots on the file system
  * @author pavel.sklenar
  * 
  */

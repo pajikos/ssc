@@ -18,6 +18,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
 import cz.vse.kit.ssc.utils.DataConvertUtils;
 
 /**
+ * Adapter for compare command from ImageMagick library
  * @author pavel.sklenar
  *
  */

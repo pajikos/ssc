@@ -11,40 +11,46 @@ import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
  * Screenshot size comparator
+ * 
  * @author pavel.sklenar
- *
+ * 
  */
-public class ImageSizeComparator {
-
+class ImageSizeComparator {
 
 	protected ImageSizeComparator() {
 	}
 
 	/**
-	 * Return an instance of screenshot, which has the same size as  the base screenshot
+	 * Return an instance of screenshot, which has the same size as the base
+	 * screenshot
+	 * 
 	 * @param baseScreenshot
 	 * @param screenshotToResize
 	 * @return
 	 */
 	protected Screenshot resizeImages2SameSize(Screenshot baseScreenshot, Screenshot screenshotToResize) {
-		if (baseScreenshot == null || screenshotToResize == null){
+		if (baseScreenshot == null || screenshotToResize == null) {
 			throw new IllegalArgumentException("Cannot resize a null screenshot.");
 		}
 		InfoImage baseScreenshotInfo = getInfoAboutImage(baseScreenshot);
 		InfoImage screenshotToResizeInfo = getInfoAboutImage(screenshotToResize);
-		
-//		Screenshot croppedScreenshot = doExtentIfRequired(baseScreenshotInfo, screenshotToResizeInfo);
-//		InfoImage croppedScreenshotInfo = getInfoAboutImage(croppedScreenshot);
-//		
-//		return doCropIfRequired(baseScreenshotInfo, croppedScreenshotInfo);
+
+		// Screenshot croppedScreenshot = doExtentIfRequired(baseScreenshotInfo,
+		// screenshotToResizeInfo);
+		// InfoImage croppedScreenshotInfo =
+		// getInfoAboutImage(croppedScreenshot);
+		//
+		// return doCropIfRequired(baseScreenshotInfo, croppedScreenshotInfo);
 		Screenshot doExtentIfRequired = doExtentIfRequired(baseScreenshotInfo, screenshotToResizeInfo);
-		//SscFileUtils.saveScreenshotToFile(doExtentIfRequired, "D:/temp/ssc", "sameSize");
+		// SscFileUtils.saveScreenshotToFile(doExtentIfRequired, "D:/temp/ssc",
+		// "sameSize");
 		return doExtentIfRequired;
 
 	}
 
 	/**
 	 * Get Immutable info object about screenshot
+	 * 
 	 * @param screenshot
 	 * @return
 	 */
@@ -59,6 +65,7 @@ public class ImageSizeComparator {
 
 	/**
 	 * Crop the other screenshot, if the base screenshot is smaller.
+	 * 
 	 * @param baseScreenshotInfo
 	 * @param screenshotToResizeInfo
 	 * @return
@@ -82,6 +89,7 @@ public class ImageSizeComparator {
 
 	/**
 	 * Extent the other screenshot if the base screenshot is bigger.
+	 * 
 	 * @param baseScreenshotInfo
 	 * @param screenshotToResizeInfo
 	 * @return

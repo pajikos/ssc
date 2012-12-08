@@ -1,8 +1,5 @@
 package cz.vse.kit.ssc.utils;
 
-/**
- * @author pavel.sklenar
- */
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,16 +14,21 @@ import cz.vse.kit.ssc.exception.FileReadException;
 import cz.vse.kit.ssc.exception.FilenameException;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Utils for manipulate with filename of {@link Screenshot}
+ * 
+ * @author pavel.sklenar
+ */
 public final class SscFilenameUtils {
 	public static final String IMAGE_EXTENSION = ".png";
 	private static int maxLengthFileName = 255;
-	public static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-			'\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '_' };
+	public static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t', '\0', '\f', '`', '?', '*', '\\', '<', '>',
+			'|', '\"', ':', '_' };
 	public static final String PARAMETR_DELIMITER = "_";
 
-	private SscFilenameUtils(){
+	private SscFilenameUtils() {
 	}
-	
+
 	public static int getMaxFilenameLength() {
 		return maxLengthFileName;
 	}
@@ -37,19 +39,19 @@ public final class SscFilenameUtils {
 		}
 		maxLengthFileName = max;
 	}
-	
-	public static boolean haveIllegalCharToFilename(String filename){
+
+	public static boolean haveIllegalCharToFilename(String filename) {
 		CharSequence seq = new String(ILLEGAL_CHARACTERS);
-		if (filename.contains(seq)){
+		if (filename.contains(seq)) {
 			return true;
 		}
 		return false;
 	}
-	
-	public static String getPrettyPrintIllegalChar(){
+
+	public static String getPrettyPrintIllegalChar() {
 		return Arrays.toString(ILLEGAL_CHARACTERS);
 	}
-	
+
 	/**
 	 * Read the {@link File} to the byte array
 	 * 
@@ -63,7 +65,7 @@ public final class SscFilenameUtils {
 			throw new FileReadException("Can't read from the file " + file.getAbsolutePath(), e);
 		}
 	}
-	
+
 	/**
 	 * Get the filename from the {@link Screenshot} instance
 	 * 
@@ -83,10 +85,11 @@ public final class SscFilenameUtils {
 		}
 		return filename;
 	}
-	
+
 	/**
-	 * Create instance of the screenshot only from screenshot filename
-	 * Doesn't return loaded {@link Screenshot} imageData
+	 * Create instance of the screenshot only from screenshot filename Doesn't
+	 * return loaded {@link Screenshot} imageData
+	 * 
 	 * @param screenshotFile
 	 * @return
 	 */
@@ -102,8 +105,7 @@ public final class SscFilenameUtils {
 		resultScreenshot.setBrowserVersion(parameters[4]);
 		return resultScreenshot;
 	}
-	
-	
+
 	public static final Comparator<File> SCREENSHOT_CREATION_FILENAME_COMP_ASC = new Comparator<File>() {
 		@Override
 		public int compare(File o1, File o2) {
@@ -113,7 +115,7 @@ public final class SscFilenameUtils {
 		}
 
 	};
-	
+
 	public static final Comparator<File> SCREENSHOT_CREATION_FILENAME_COMP_DESC = new Comparator<File>() {
 		@Override
 		public int compare(File o1, File o2) {
@@ -123,6 +125,5 @@ public final class SscFilenameUtils {
 		}
 
 	};
-	
 
 }
