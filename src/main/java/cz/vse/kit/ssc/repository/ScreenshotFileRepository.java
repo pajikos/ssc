@@ -25,10 +25,14 @@ import cz.vse.kit.ssc.utils.SscFilenameUtils;
  */
 public class ScreenshotFileRepository implements ScreenshotRepository {
 	private static final Logger LOG = LoggerFactory.getLogger(ScreenshotFileRepository.class);
-	private String path;
+	private File dir;
 
 	public ScreenshotFileRepository(String path) {
-		setPath(path);
+		createDir(path);
+	}
+	
+	public ScreenshotFileRepository(File dir) {
+		this.dir = dir;
 	}
 
 	/**
@@ -38,7 +42,7 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * @param maxLengthOfFilename
 	 */
 	public ScreenshotFileRepository(String path, int maxLengthOfFilename) {
-		setPath(path);
+		createDir(path);
 		setMaxLengthOfFilename(maxLengthOfFilename);
 	}
 
@@ -50,7 +54,7 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * kit.ssc.repository.Screenshot)
 	 */
 	public synchronized void saveScreenshot(Screenshot screenshot) {
-		SscFileUtils.saveScreenshotToFile(screenshot, path);
+		SscFileUtils.saveScreenshotToFile(screenshot, dir);
 	}
 
 	/*
@@ -219,11 +223,11 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * @param path
 	 *            the path to set
 	 */
-	private void setPath(String path) {
+	private void createDir(String path) {
 		File dir = new File(path);
 		boolean exists = dir.isDirectory();
 		if (exists) {
-			this.path = path;
+			this.dir = dir;
 		} else {
 			throw new ScreenshotDirectoryException();
 		}
@@ -248,7 +252,6 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * @return
 	 */
 	private File[] getFilesByScreenshotExample(Screenshot screenshot) {
-		File dir = new File(path);
 		return dir.listFiles(new ScreenshotFileFilter(screenshot));
 	}
 
