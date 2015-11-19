@@ -1,6 +1,7 @@
 package cz.vse.kit.ssc.core;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -42,6 +43,26 @@ public class CompatibilityTester {
 	 */
 	public CompatibilityTester(String path) {
 		this.screenshotRepository = new ScreenshotFileRepository(path);
+	}
+	
+	/**
+	 * Contuctor for construct for setting {@link ScreenshotFileRepository}
+	 * 
+	 * @param path
+	 *            to saving screenshots
+	 */
+	public CompatibilityTester(File dir) {
+		this.screenshotRepository = new ScreenshotFileRepository(dir);
+	}
+	
+	/**
+	 * Contuctor for construct for setting {@link ScreenshotFileRepository}
+	 * 
+	 * @param path
+	 *            to saving screenshots
+	 */
+	public CompatibilityTester(Path dir) {
+		this.screenshotRepository = new ScreenshotFileRepository(dir.toFile());
 	}
 
 	/**
