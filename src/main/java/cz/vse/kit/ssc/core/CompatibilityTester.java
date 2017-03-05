@@ -81,6 +81,9 @@ public class CompatibilityTester {
 	 *            instance of {@link WebDriver}
 	 */
 	public Screenshot takeScreenshotAndSaveToRepo(String id, WebDriver webDriver) {
+		if (getScreenshotRepository() == null) {
+			throw new ScreenshotRepositoryException("Must be set the ScreenshotRepositoty");
+		}
 		RemoteWebDriver remoteWebDriver;
 		try {
 			remoteWebDriver = (RemoteWebDriver) webDriver;
@@ -88,9 +91,6 @@ public class CompatibilityTester {
 			throw new RemoteWebdriverException(e);
 		}
 		Screenshot screenshot = new ScreenshotTaker().takeScreenshot(id, remoteWebDriver);
-		if (getScreenshotRepository() == null) {
-			throw new ScreenshotRepositoryException("Must be set the ScreenshotRepositoty");
-		}
 		getScreenshotRepository().saveScreenshot(screenshot);
 		return screenshot;
 	}

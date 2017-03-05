@@ -1,7 +1,9 @@
 package cz.vse.kit.ssc;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -15,7 +17,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
+import cz.vse.kit.ssc.repository.Screenshot;
 import cz.vse.kit.ssc.repository.ScreenshotRepository;
+import cz.vse.kit.ssc.utils.SscFilenameUtils;
 
 /**
  * Example test with spring
@@ -30,39 +34,27 @@ public class SpringTest {
 	private ScreenshotRepository repository;
 	private CompatibilityTester compatibilityTester;
 	private WebDriver driver;
-	private String baseUrl;
-	private StringBuffer verificationErrors = new StringBuffer();
+	private static final String BASE_URL = "https://www.vse.cz/";
+	private Path outputDirectory;
 
 	@Before
 	public void setUp() throws Exception {
 		compatibilityTester = new CompatibilityTester();
 		compatibilityTester.setScreenshotRepository(repository);
 		driver = new FirefoxDriver();
-		baseUrl = "https://www.vse.cz/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		outputDirectory = Files.createTempDirectory("SPRING_TEST");
 	}
 
 	@Test
 	public void saveScreenshotToFile() {
-		driver.get(baseUrl + "/");
-		compatibilityTester.takeScreenshotAndSaveToRepo("springTest", driver);
+		driver.get(BASE_URL);
+		Screenshot screenshot = compatibilityTester.takeScreenshotAndSaveToRepo("springTest", driver);
+		assertTrue(Files.exists(outputDirectory.resolve(SscFilenameUtils.getFilename(screenshot))));
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
-		String verificationErrorString = verificationErrors.toString();
-		if (!"".equals(verificationErrorString)) {
-			fail(verificationErrorString);
-		}
 	}
-
-	/**
-	 * @param repository
-	 *            the repository to set
-	 */
-	public void setRepository(ScreenshotRepository repository) {
-		this.repository = repository;
-	}
-
 }

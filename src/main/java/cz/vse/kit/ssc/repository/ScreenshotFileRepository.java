@@ -1,9 +1,7 @@
-/**
- * 
- */
 package cz.vse.kit.ssc.repository;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +32,10 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	public ScreenshotFileRepository(File dir) {
 		this.dir = dir;
 	}
+	
+	public ScreenshotFileRepository(Path dir) {
+		this.dir = dir.toFile();
+	}
 
 	/**
 	 * Constructor
@@ -54,7 +56,7 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * kit.ssc.repository.Screenshot)
 	 */
 	public synchronized void saveScreenshot(Screenshot screenshot) {
-		SscFileUtils.saveScreenshotToFile(screenshot, dir);
+		SscFileUtils.saveScreenshotToFile(screenshot, dir.getAbsolutePath(), null);
 	}
 
 	/*
