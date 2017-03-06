@@ -15,6 +15,11 @@ import org.openqa.selenium.Platform;
 import cz.vse.kit.ssc.ResourceFile;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Test class for {@link InfoImage} command
+ * @author pavel.sklenar
+ *
+ */
 public class InfoImageTest {
 
     @Rule

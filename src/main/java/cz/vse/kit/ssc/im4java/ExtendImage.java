@@ -19,6 +19,7 @@ import cz.vse.kit.ssc.utils.DataConvertUtils;
 
 /**
  * Adapter for extend command from ImageMagick library
+ *
  * @author pavel.sklenar
  *
  */
@@ -33,7 +34,6 @@ public class ExtendImage extends ImageOperation {
 
         op.addImage("png:-");
         ConvertCmd convert = new ConvertCmd();
-        InputStream in = new ByteArrayInputStream(screenshot.getImageData());
 
         logCommand(convert, op);
 
@@ -41,7 +41,7 @@ public class ExtendImage extends ImageOperation {
         convert.setOutputConsumer(s2b);
         Screenshot resScreenshot = new Screenshot(screenshot);
         // run command and extract BufferedImage from OutputConsumer
-        try {
+        try (InputStream in = new ByteArrayInputStream(screenshot.getImageData())) {
             BufferedImage bImageFromConvert = ImageIO.read(in);
             convert.run(op, bImageFromConvert);
             BufferedImage img = s2b.getImage();

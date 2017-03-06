@@ -34,13 +34,6 @@ class ImageSizeComparator {
         }
         InfoImage baseScreenshotInfo = getInfoAboutImage(baseScreenshot);
         InfoImage screenshotToResizeInfo = getInfoAboutImage(screenshotToResize);
-
-        // Screenshot croppedScreenshot = doExtentIfRequired(baseScreenshotInfo,
-        // screenshotToResizeInfo);
-        // InfoImage croppedScreenshotInfo =
-        // getInfoAboutImage(croppedScreenshot);
-        //
-        // return doCropIfRequired(baseScreenshotInfo, croppedScreenshotInfo);
         Screenshot doExtentIfRequired = doExtentIfRequired(baseScreenshotInfo, screenshotToResizeInfo);
         return doExtentIfRequired;
 
