@@ -11,106 +11,104 @@ import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
  * Screenshot size comparator
- * 
+ *
  * @author pavel.sklenar
- * 
+ *
  */
 class ImageSizeComparator {
 
-	protected ImageSizeComparator() {
-	}
+    protected ImageSizeComparator() {
+    }
 
-	/**
-	 * Return an instance of screenshot, which has the same size as the base
-	 * screenshot
-	 * 
-	 * @param baseScreenshot
-	 * @param screenshotToResize
-	 * @return
-	 */
-	protected Screenshot resizeImages2SameSize(Screenshot baseScreenshot, Screenshot screenshotToResize) {
-		if (baseScreenshot == null || screenshotToResize == null) {
-			throw new IllegalArgumentException("Cannot resize a null screenshot.");
-		}
-		InfoImage baseScreenshotInfo = getInfoAboutImage(baseScreenshot);
-		InfoImage screenshotToResizeInfo = getInfoAboutImage(screenshotToResize);
+    /**
+     * Return an instance of screenshot, which has the same size as the base
+     * screenshot
+     *
+     * @param baseScreenshot
+     * @param screenshotToResize
+     * @return
+     */
+    protected Screenshot resizeImages2SameSize(Screenshot baseScreenshot, Screenshot screenshotToResize) {
+        if (baseScreenshot == null || screenshotToResize == null) {
+            throw new IllegalArgumentException("Cannot resize a null screenshot.");
+        }
+        InfoImage baseScreenshotInfo = getInfoAboutImage(baseScreenshot);
+        InfoImage screenshotToResizeInfo = getInfoAboutImage(screenshotToResize);
 
-		// Screenshot croppedScreenshot = doExtentIfRequired(baseScreenshotInfo,
-		// screenshotToResizeInfo);
-		// InfoImage croppedScreenshotInfo =
-		// getInfoAboutImage(croppedScreenshot);
-		//
-		// return doCropIfRequired(baseScreenshotInfo, croppedScreenshotInfo);
-		Screenshot doExtentIfRequired = doExtentIfRequired(baseScreenshotInfo, screenshotToResizeInfo);
-		// SscFileUtils.saveScreenshotToFile(doExtentIfRequired, "D:/temp/ssc",
-		// "sameSize");
-		return doExtentIfRequired;
+        // Screenshot croppedScreenshot = doExtentIfRequired(baseScreenshotInfo,
+        // screenshotToResizeInfo);
+        // InfoImage croppedScreenshotInfo =
+        // getInfoAboutImage(croppedScreenshot);
+        //
+        // return doCropIfRequired(baseScreenshotInfo, croppedScreenshotInfo);
+        Screenshot doExtentIfRequired = doExtentIfRequired(baseScreenshotInfo, screenshotToResizeInfo);
+        return doExtentIfRequired;
 
-	}
+    }
 
-	/**
-	 * Get Immutable info object about screenshot
-	 * 
-	 * @param screenshot
-	 * @return
-	 */
-	private InfoImage getInfoAboutImage(Screenshot screenshot) {
-		try {
-			return new InfoImage(screenshot);
-		} catch (InfoException e) {
-			throw new Im4JavaCommandException("Cannot get info about image from the command on the im4java.", e);
-		}
+    /**
+     * Get Immutable info object about screenshot
+     *
+     * @param screenshot
+     * @return
+     */
+    protected InfoImage getInfoAboutImage(Screenshot screenshot) {
+        try {
+            return new InfoImage(screenshot);
+        } catch (InfoException e) {
+            throw new Im4JavaCommandException("Cannot get info about image from the command on the im4java.", e);
+        }
 
-	}
+    }
 
-	/**
-	 * Crop the other screenshot, if the base screenshot is smaller.
-	 * 
-	 * @param baseScreenshotInfo
-	 * @param screenshotToResizeInfo
-	 * @return
-	 */
-	private Screenshot doCropIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
-		Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
-		try {
-			int baseWidth = baseScreenshotInfo.getImageWidth();
-			int baseHeight = baseScreenshotInfo.getImageHeight();
-			int otherWidth = screenshotToResizeInfo.getImageWidth();
-			int otherHeight = screenshotToResizeInfo.getImageHeight();
-			if ((baseWidth < otherWidth) || (baseHeight < otherHeight)) {
-				resultScreenshot = CropImage.process(screenshotToResizeInfo.getScreenshot(), baseWidth, baseHeight);
-			}
-		} catch (IM4JavaException e) {
-			throw new Im4JavaCommandException("Cannot process a crop image command on the im4java.", e);
-		}
+    /**
+     * Crop the other screenshot, if the base screenshot is smaller.
+     *
+     * @param baseScreenshotInfo
+     * @param screenshotToResizeInfo
+     * @return
+     */
+    protected Screenshot doCropIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
+        Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
+        try {
+            int baseWidth = baseScreenshotInfo.getImageWidth();
+            int baseHeight = baseScreenshotInfo.getImageHeight();
+            int otherWidth = screenshotToResizeInfo.getImageWidth();
+            int otherHeight = screenshotToResizeInfo.getImageHeight();
+            if ((baseWidth < otherWidth) || (baseHeight < otherHeight)) {
+                resultScreenshot = CropImage.process(screenshotToResizeInfo.getScreenshot(), baseWidth, baseHeight);
+            }
+        } catch (IM4JavaException e) {
+            throw new Im4JavaCommandException("Cannot process a crop image command on the im4java.", e);
+        }
 
-		return resultScreenshot;
-	}
+        return resultScreenshot;
+    }
 
-	/**
-	 * Extent the other screenshot if the base screenshot is bigger.
-	 * 
-	 * @param baseScreenshotInfo
-	 * @param screenshotToResizeInfo
-	 * @return
-	 */
-	private Screenshot doExtentIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
-		Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
-		try {
-			int baseWidth = baseScreenshotInfo.getImageWidth();
-			int baseHeight = baseScreenshotInfo.getImageHeight();
+    /**
+     * Extent the other screenshot if the base screenshot is bigger.
+     *
+     * @param baseScreenshotInfo
+     * @param screenshotToResizeInfo
+     * @return
+     */
+    protected Screenshot doExtentIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
+        Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
+        try {
+            int baseWidth = baseScreenshotInfo.getImageWidth();
+            int baseHeight = baseScreenshotInfo.getImageHeight();
 
-			int otherWidth = screenshotToResizeInfo.getImageWidth();
-			int otherHeight = screenshotToResizeInfo.getImageHeight();
+            int otherWidth = screenshotToResizeInfo.getImageWidth();
+            int otherHeight = screenshotToResizeInfo.getImageHeight();
 
-			if ((baseWidth != otherWidth) || (baseHeight != otherHeight)) {
-				resultScreenshot = ExtendImage.process(screenshotToResizeInfo.getScreenshot(), baseWidth, baseHeight);
-			}
-		} catch (IM4JavaException e) {
-			throw new Im4JavaCommandException("Cannot process a extent image command on the im4java.", e);
-		}
+            if ((baseWidth != otherWidth) || (baseHeight != otherHeight)) {
+                resultScreenshot = ExtendImage.process(screenshotToResizeInfo.getScreenshot(), baseWidth, baseHeight);
+            }
+        } catch (IM4JavaException e) {
+            throw new Im4JavaCommandException("Cannot process a extent image command on the im4java.", e);
+        }
 
-		return resultScreenshot;
-	}
+        return resultScreenshot;
+    }
 
 }
