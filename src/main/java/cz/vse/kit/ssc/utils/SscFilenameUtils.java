@@ -33,6 +33,14 @@ public final class SscFilenameUtils {
         return maxLengthFileName;
     }
 
+    /**
+     * Set max filename length
+     * <p>
+     * Input parameter must be positive number, i.e.: (0,
+     * {@link Integer#MAX_VALUE}>
+     *
+     * @param max
+     */
     public static void setMaxFilenameLength(int max) {
         if (max <= 0) {
             throw new FilenameException("Max length of file name should be positive number.");
@@ -40,10 +48,23 @@ public final class SscFilenameUtils {
         maxLengthFileName = max;
     }
 
+    /**
+     * Test whether an input {@link String} contains
+     * {@link SscFilenameUtils#ILLEGAL_CHARACTERS}
+     *
+     * @param filename
+     *            to test
+     * @return true if input filename contains any of
+     *         {@link SscFilenameUtils#ILLEGAL_CHARACTERS}, false otherwise
+     */
     public static boolean haveIllegalCharToFilename(String filename) {
-        CharSequence seq = new String(ILLEGAL_CHARACTERS);
-        if (filename.contains(seq)) {
-            return true;
+        if (filename == null || filename.isEmpty()) {
+            return false;
+        }
+        for (char c : ILLEGAL_CHARACTERS) {
+            if (filename.indexOf(c) >= 0) {
+                return true;
+            }
         }
         return false;
     }
@@ -74,12 +95,12 @@ public final class SscFilenameUtils {
      */
     public static String getFilename(Screenshot screenshot) {
         if (SscFilenameUtils.haveIllegalCharToFilename(screenshot.getId())) {
-            throw new FilenameException("Id must not contain these characters: "
-                    + SscFilenameUtils.getPrettyPrintIllegalChar());
+            throw new FilenameException(
+                    "Id must not contain these characters: " + SscFilenameUtils.getPrettyPrintIllegalChar());
         }
         String filename = screenshot.getId() + "_" + screenshot.getCaptureDate().getTime() + "_"
-                + screenshot.getPlatform() + "_" + screenshot.getBrowserName() + "_" + (screenshot.getBrowserVersion() != null ? screenshot.getBrowserVersion() : "")
-                + IMAGE_EXTENSION;
+                + screenshot.getPlatform() + "_" + screenshot.getBrowserName() + "_"
+                + (screenshot.getBrowserVersion() != null ? screenshot.getBrowserVersion() : "") + IMAGE_EXTENSION;
         if (SscFilenameUtils.getMaxFilenameLength() < filename.length()) {
             throw new FilenameException("Max length of filename is not enough to use compatibility tester.");
         }

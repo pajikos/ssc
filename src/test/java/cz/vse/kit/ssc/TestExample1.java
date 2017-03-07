@@ -1,13 +1,11 @@
 package cz.vse.kit.ssc;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +16,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.Screenshot;
 import cz.vse.kit.ssc.repository.ScreenshotFileRepository;
-import cz.vse.kit.ssc.repository.ScreenshotRepository;
 import cz.vse.kit.ssc.utils.SscFilenameUtils;
 
 public class TestExample1 extends AbstractRealBrowserTest {
