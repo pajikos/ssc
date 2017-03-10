@@ -12,11 +12,8 @@ import cz.vse.kit.ssc.repository.Screenshot;
 
 class ImageScreenComparator {
 
-    private ImageSizeComparator imageSizeComparator;
 
-    protected ImageScreenComparator() {
-        this.imageSizeComparator = new ImageSizeComparator();
-
+    private ImageScreenComparator() {
     }
 
     /**
@@ -26,11 +23,11 @@ class ImageScreenComparator {
      * @param otherScreenshot
      * @return
      */
-    protected Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot, int fuzzPercent) {
+    protected static Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot, int fuzzPercent) {
         if (baseScreenshot == null || otherScreenshot == null) {
             throw new IllegalArgumentException("Cannot compare null screenshot.");
         }
-        Screenshot resizedImage = imageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
+        Screenshot resizedImage = ImageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
         try {
             Screenshot processedImage = CompareImage.process(baseScreenshot, resizedImage, fuzzPercent);
             processedImage.setCaptureDate(new Date());
@@ -53,11 +50,11 @@ class ImageScreenComparator {
      * @param autoLevel
      * @return
      */
-    protected Screenshot composeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot, boolean autoLevel) {
+    protected static Screenshot composeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot, boolean autoLevel) {
         if (baseScreenshot == null || otherScreenshot == null) {
             throw new IllegalArgumentException("Cannot compare null screenshot.");
         }
-        Screenshot resizedImage = imageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
+        Screenshot resizedImage = ImageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
         try {
             Screenshot processedImage = CompositeImage.process(baseScreenshot, resizedImage);
             if (autoLevel) {

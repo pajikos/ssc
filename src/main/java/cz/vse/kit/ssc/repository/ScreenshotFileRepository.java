@@ -150,7 +150,7 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
 	 * cz.vse.kit.ssc.repository.ScreenshotRepository#getLastTwoScreenshotById
 	 * (java.lang.String)
 	 */
-	public List<Screenshot> getLastTwoScreenshotById(String id) {
+	public List<Screenshot> getLastTwoScreenshotsById(String id) {
 		Screenshot exampleScreenshot = new Screenshot();
 		exampleScreenshot.setId(id);
 		return getLastTwoScreenshotsByExample(exampleScreenshot);

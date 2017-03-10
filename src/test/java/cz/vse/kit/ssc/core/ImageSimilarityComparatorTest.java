@@ -13,6 +13,15 @@ import org.openqa.selenium.Platform;
 import cz.vse.kit.ssc.ResourceFile;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Test class for {@link ImageSimilarityComparator}
+ * <p>
+ * <a href="https://www.imagemagick.org/script/download.php">ImageMagick</a>
+ * command line utility needs to be installed.
+ *
+ * @author pavel.sklenar
+ *
+ */
 public class ImageSimilarityComparatorTest {
 
     @Rule
@@ -25,33 +34,25 @@ public class ImageSimilarityComparatorTest {
 
     private Screenshot screenshot2;
 
-    private ImageSimilarityComparator comparator;
-
     /**
      * Create a testing {@link Screenshot}
      *
      * @throws IOException
      */
     private Screenshot createScreenshot(ResourceFile file) throws IOException {
-        Screenshot screenshot = new Screenshot();
-        screenshot.setId("test");
-        screenshot.setBrowserName("firefox");
-        screenshot.setCaptureDate(new Date());
-        screenshot.setPlatform(Platform.UNIX);
-        screenshot.setImageData(file.getContentAsBytes());
-        return screenshot;
+        return new Screenshot.ScreenshotBuilder().withId("test").withBrowserName("firefox").withCaptureDate(new Date())
+                .withPlatform(Platform.UNIX).withImageData(file.getContentAsBytes()).build();
     }
 
     @Before
     public void setUp() throws Exception {
         screenshot1 = createScreenshot(image1);
         screenshot2 = createScreenshot(image2);
-        comparator = new ImageSimilarityComparator();
     }
 
     @Test
     public void testComputeSimilarity() throws Exception {
-        assertEquals(0.29, comparator.computeSimilarity(screenshot1, screenshot2), 0.1);
+        assertEquals(0.29, ImageSimilarityComparator.computeSimilarity(screenshot1, screenshot2), 0.1);
     }
 
 }

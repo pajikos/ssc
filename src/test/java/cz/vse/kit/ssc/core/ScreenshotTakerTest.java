@@ -11,6 +11,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import cz.vse.kit.ssc.AbstractRealBrowserTest;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Test for {@link ScreenshotTaker}<p>
+ * <a href="https://www.mozilla.org/en-US/firefox/new/?scene=2">Mozilla Firefox</a> needs to be installed.
+ * @author pavel.sklenar
+ *
+ */
 public class ScreenshotTakerTest extends AbstractRealBrowserTest {
 
     private static final String BASE_URL = "http://www.google.com";

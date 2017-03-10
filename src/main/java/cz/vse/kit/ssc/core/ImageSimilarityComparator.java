@@ -14,10 +14,8 @@ import cz.vse.kit.ssc.repository.Screenshot;
  *
  */
 class ImageSimilarityComparator {
-    private ImageSizeComparator imageSizeComparator;
 
-    protected ImageSimilarityComparator() {
-        this.imageSizeComparator = new ImageSizeComparator();
+    private ImageSimilarityComparator() {
     }
 
     /**
@@ -27,11 +25,11 @@ class ImageSimilarityComparator {
      * @param otherScreenshot
      * @return
      */
-    protected float computeSimilarity(Screenshot baseScreenshot, Screenshot otherScreenshot) {
+    protected static float computeSimilarity(Screenshot baseScreenshot, Screenshot otherScreenshot) {
         if (baseScreenshot == null || otherScreenshot == null) {
             throw new IllegalArgumentException("Cannot compute a similarity with a null screenshot.");
         }
-        Screenshot resizedImage = imageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
+        Screenshot resizedImage = ImageSizeComparator.resizeImages2SameSize(baseScreenshot, otherScreenshot);
         try {
             Screenshot grayBaseScreenshot = ConvertImage.convertToGray(baseScreenshot);
             Screenshot grayOtherScreenshot = ConvertImage.convertToGray(resizedImage);

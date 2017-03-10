@@ -15,222 +15,222 @@ import cz.vse.kit.ssc.utils.SscFileUtils;
 
 /**
  * Main class of library Point of contact for all functionality
- * 
+ *
  * @author pavel.sklenar
- * 
+ *
  */
 public class CompatibilityTester {
 
-	private ScreenshotRepository screenshotRepository;
+    private ScreenshotRepository screenshotRepository;
 
-	/**
-	 * Constructor for construct instance with {@link ScreenshotFileRepository}
-	 * parameter
-	 * 
-	 * @param screenshotRepository
-	 *            set instance of {@link ScreenshotFileRepository}
-	 */
-	public CompatibilityTester(ScreenshotRepository screenshotRepository) {
-		this.screenshotRepository = screenshotRepository;
+    /**
+     * Constructor for construct instance with {@link ScreenshotFileRepository}
+     * parameter
+     *
+     * @param screenshotRepository
+     *            set instance of {@link ScreenshotFileRepository}
+     */
+    public CompatibilityTester(ScreenshotRepository screenshotRepository) {
+        this.screenshotRepository = screenshotRepository;
 
-	}
+    }
 
-	/**
-	 * Contuctor for construct for setting {@link ScreenshotFileRepository}
-	 * 
-	 * @param path
-	 *            to saving screenshots
-	 */
-	public CompatibilityTester(String path) {
-		this.screenshotRepository = new ScreenshotFileRepository(path);
-	}
-	
-	/**
-	 * Contuctor for construct for setting {@link ScreenshotFileRepository}
-	 * 
-	 * @param path
-	 *            to saving screenshots
-	 */
-	public CompatibilityTester(File dir) {
-		this.screenshotRepository = new ScreenshotFileRepository(dir);
-	}
-	
-	/**
-	 * Contuctor for construct for setting {@link ScreenshotFileRepository}
-	 * 
-	 * @param path
-	 *            to saving screenshots
-	 */
-	public CompatibilityTester(Path dir) {
-		this.screenshotRepository = new ScreenshotFileRepository(dir.toFile());
-	}
+    /**
+     * Contuctor for construct for setting {@link ScreenshotFileRepository}
+     *
+     * @param path
+     *            to saving screenshots
+     */
+    public CompatibilityTester(String path) {
+        this.screenshotRepository = new ScreenshotFileRepository(path);
+    }
 
-	/**
-	 * Simple constructor
-	 */
-	public CompatibilityTester() {
-		// dummy
-	}
+    /**
+     * Contuctor for construct for setting {@link ScreenshotFileRepository}
+     *
+     * @param path
+     *            to saving screenshots
+     */
+    public CompatibilityTester(File dir) {
+        this.screenshotRepository = new ScreenshotFileRepository(dir);
+    }
 
-	/**
-	 * Take the Screenshot from the WebDriver and save to the Repository
-	 * 
-	 * @param id
-	 *            the unique identifier of a screenshot
-	 * @param webDriver
-	 *            instance of {@link WebDriver}
-	 */
-	public Screenshot takeScreenshotAndSaveToRepo(String id, WebDriver webDriver) {
-		if (getScreenshotRepository() == null) {
-			throw new ScreenshotRepositoryException("Must be set the ScreenshotRepositoty");
-		}
-		RemoteWebDriver remoteWebDriver;
-		try {
-			remoteWebDriver = (RemoteWebDriver) webDriver;
-		} catch (ClassCastException e) {
-			throw new RemoteWebdriverException(e);
-		}
-		Screenshot screenshot = new ScreenshotTaker().takeScreenshot(id, remoteWebDriver);
-		getScreenshotRepository().saveScreenshot(screenshot);
-		return screenshot;
-	}
+    /**
+     * Contuctor for construct for setting {@link ScreenshotFileRepository}
+     *
+     * @param path
+     *            to saving screenshots
+     */
+    public CompatibilityTester(Path dir) {
+        this.screenshotRepository = new ScreenshotFileRepository(dir.toFile());
+    }
 
-	/**
-	 * Take the Screenshot from the WebDriver without the saving to Repository
-	 * 
-	 * @param id
-	 *            the unique identifier of a screenshot
-	 * @param webDriver
-	 *            instance of {@link WebDriver}
-	 */
-	public Screenshot takeScreenshot(String id, WebDriver webDriver) {
-		RemoteWebDriver remoteWebDriver;
-		try {
-			remoteWebDriver = (RemoteWebDriver) webDriver;
-		} catch (ClassCastException e) {
-			throw new RemoteWebdriverException(e);
-		}
-		Screenshot screenshot = new ScreenshotTaker().takeScreenshot(id, remoteWebDriver);
-		return screenshot;
-	}
+    /**
+     * Simple constructor
+     */
+    public CompatibilityTester() {
+        // dummy
+    }
 
-	/**
-	 * Save the Screenshot to the file
-	 * 
-	 * @param screenshot
-	 *            {@link Screenshot} to save
-	 * @param pathToSave
-	 *            The path to save new file
-	 * @param filename
-	 *            The file name of new file to save
-	 */
-	public void saveScreenshotToFile(Screenshot screenshot, String pathToSave, String filename) {
-		SscFileUtils.saveScreenshotToFile(screenshot, pathToSave, filename);
-	}
+    /**
+     * Take the Screenshot from the WebDriver and save to the Repository
+     *
+     * @param id
+     *            the unique identifier of a screenshot
+     * @param webDriver
+     *            instance of {@link WebDriver}
+     */
+    public Screenshot takeScreenshotAndSaveToRepo(String id, WebDriver webDriver) {
+        if (getScreenshotRepository() == null) {
+            throw new ScreenshotRepositoryException("Must be set the ScreenshotRepositoty");
+        }
+        RemoteWebDriver remoteWebDriver;
+        try {
+            remoteWebDriver = (RemoteWebDriver) webDriver;
+        } catch (ClassCastException e) {
+            throw new RemoteWebdriverException(e);
+        }
+        Screenshot screenshot = new ScreenshotTaker().takeScreenshot(id, remoteWebDriver);
+        getScreenshotRepository().saveScreenshot(screenshot);
+        return screenshot;
+    }
 
-	/**
-	 * Save the Screenshot to the file
-	 * 
-	 * @param screenshot
-	 *            {@link Screenshot} to save
-	 * @param file
-	 *            The instance to save
-	 */
-	public void saveScreenshotToFile(Screenshot screenshot, File file) {
-		SscFileUtils.saveScreenshotToFile(screenshot, file);
-	}
+    /**
+     * Take the Screenshot from the WebDriver without the saving to Repository
+     *
+     * @param id
+     *            the unique identifier of a screenshot
+     * @param webDriver
+     *            instance of {@link WebDriver}
+     */
+    public Screenshot takeScreenshot(String id, WebDriver webDriver) {
+        RemoteWebDriver remoteWebDriver;
+        try {
+            remoteWebDriver = (RemoteWebDriver) webDriver;
+        } catch (ClassCastException e) {
+            throw new RemoteWebdriverException(e);
+        }
+        Screenshot screenshot = new ScreenshotTaker().takeScreenshot(id, remoteWebDriver);
+        return screenshot;
+    }
 
-	/**
-	 * Save the Screenshot to the file
-	 * 
-	 * @param screenshot
-	 *            {@link Screenshot} to save
-	 * @param pathToSave
-	 *            The path to save new file
-	 */
-	public void saveScreenshotToFile(Screenshot screenshot, String pathToSave) {
-		SscFileUtils.saveScreenshotToFile(screenshot, pathToSave);
-	}
+    /**
+     * Save the Screenshot to the file
+     *
+     * @param screenshot
+     *            {@link Screenshot} to save
+     * @param pathToSave
+     *            The path to save new file
+     * @param filename
+     *            The file name of new file to save
+     */
+    public void saveScreenshotToFile(Screenshot screenshot, String pathToSave, String filename) {
+        SscFileUtils.saveScreenshotToFile(screenshot, pathToSave, filename);
+    }
 
-	/**
-	 * @return the screenshotRepository
-	 */
-	public ScreenshotRepository getScreenshotRepository() {
-		return screenshotRepository;
-	}
+    /**
+     * Save the Screenshot to the file
+     *
+     * @param screenshot
+     *            {@link Screenshot} to save
+     * @param file
+     *            The instance to save
+     */
+    public void saveScreenshotToFile(Screenshot screenshot, File file) {
+        SscFileUtils.saveScreenshotToFile(screenshot, file);
+    }
 
-	/**
-	 * Compare two screenshot
-	 * 
-	 * @param baseScreenshot
-	 *            first {@link Screenshot} to compare
-	 * @param otherScreenshot
-	 *            second {@link Screenshot} to compare
-	 * @return {@link Screenshot} with highlighted the differences
-	 */
-	public Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot) {
-		return new ImageScreenComparator().compare(baseScreenshot, otherScreenshot, 0);
-	}
+    /**
+     * Save the Screenshot to the file
+     *
+     * @param screenshot
+     *            {@link Screenshot} to save
+     * @param pathToSave
+     *            The path to save new file
+     */
+    public void saveScreenshotToFile(Screenshot screenshot, String pathToSave) {
+        SscFileUtils.saveScreenshotToFile(screenshot, pathToSave);
+    }
 
-	/**
-	 * Compare two screenshot
-	 * 
-	 * @param baseScreenshot
-	 *            first {@link Screenshot} to compare
-	 * @param otherScreenshot
-	 *            second {@link Screenshot} to compare
-	 * @return {@link Screenshot} with highlighted the differences
-	 */
-	public Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot, int fuzzPercent) {
-		return new ImageScreenComparator().compare(baseScreenshot, otherScreenshot, fuzzPercent);
-	}
+    /**
+     * @return the screenshotRepository
+     */
+    public ScreenshotRepository getScreenshotRepository() {
+        return screenshotRepository;
+    }
 
-	/**
-	 * Compose difference of two Screenshots (other type of comparing)
-	 * 
-	 * @param baseScreenshot
-	 *            first {@link Screenshot} to composite
-	 * @param otherScreenshot
-	 *            second {@link Screenshot} to composite
-	 * @return {@link Screenshot} with highlighted the differences in negative
-	 */
-	public Screenshot compositeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot) {
-		return new ImageScreenComparator().composeDifference(baseScreenshot, otherScreenshot, false);
-	}
+    /**
+     * Compare two screenshot
+     *
+     * @param baseScreenshot
+     *            first {@link Screenshot} to compare
+     * @param otherScreenshot
+     *            second {@link Screenshot} to compare
+     * @return {@link Screenshot} with highlighted the differences
+     */
+    public Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot) {
+        return ImageScreenComparator.compare(baseScreenshot, otherScreenshot, 0);
+    }
 
-	/**
-	 * Compose difference of two Screenshots (other type of
-	 * {@link CompatibilityTester#compare(Screenshot, Screenshot, int)})
-	 * 
-	 * @param baseScreenshot
-	 *            first {@link Screenshot} to composite
-	 * @param otherScreenshot
-	 *            second {@link Screenshot} to composite
-	 * @return {@link Screenshot} with highlighted the differences in negative
-	 */
-	public Screenshot compositeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot, boolean autoLevel) {
-		return new ImageScreenComparator().composeDifference(baseScreenshot, otherScreenshot, autoLevel);
-	}
+    /**
+     * Compare two screenshot
+     *
+     * @param baseScreenshot
+     *            first {@link Screenshot} to compare
+     * @param otherScreenshot
+     *            second {@link Screenshot} to compare
+     * @return {@link Screenshot} with highlighted the differences
+     */
+    public Screenshot compare(Screenshot baseScreenshot, Screenshot otherScreenshot, int fuzzPercent) {
+        return ImageScreenComparator.compare(baseScreenshot, otherScreenshot, fuzzPercent);
+    }
 
-	/**
-	 * Compute the similarity of the input images
-	 * 
-	 * @param baseScreenshot
-	 *            first {@link Screenshot}
-	 * @param otherScreenshot
-	 *            second {@link Screenshot}
-	 * @return {@link Float} of mutual similarity
-	 */
-	public float computeSimilarity(Screenshot baseScreenshot, Screenshot otherScreenshot) {
-		return new ImageSimilarityComparator().computeSimilarity(baseScreenshot, otherScreenshot);
-	}
+    /**
+     * Compose difference of two Screenshots (other type of comparing)
+     *
+     * @param baseScreenshot
+     *            first {@link Screenshot} to composite
+     * @param otherScreenshot
+     *            second {@link Screenshot} to composite
+     * @return {@link Screenshot} with highlighted the differences in negative
+     */
+    public Screenshot compositeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot) {
+        return ImageScreenComparator.composeDifference(baseScreenshot, otherScreenshot, false);
+    }
 
-	/**
-	 * @param screenshotRepository
-	 *            the screenshotRepository to set
-	 */
-	public void setScreenshotRepository(ScreenshotRepository screenshotRepository) {
-		this.screenshotRepository = screenshotRepository;
-	}
+    /**
+     * Compose difference of two Screenshots (other type of
+     * {@link CompatibilityTester#compare(Screenshot, Screenshot, int)})
+     *
+     * @param baseScreenshot
+     *            first {@link Screenshot} to composite
+     * @param otherScreenshot
+     *            second {@link Screenshot} to composite
+     * @return {@link Screenshot} with highlighted the differences in negative
+     */
+    public Screenshot compositeDifference(Screenshot baseScreenshot, Screenshot otherScreenshot, boolean autoLevel) {
+        return ImageScreenComparator.composeDifference(baseScreenshot, otherScreenshot, autoLevel);
+    }
+
+    /**
+     * Compute the similarity of the input images
+     *
+     * @param baseScreenshot
+     *            first {@link Screenshot}
+     * @param otherScreenshot
+     *            second {@link Screenshot}
+     * @return {@link Float} of mutual similarity
+     */
+    public float computeSimilarity(Screenshot baseScreenshot, Screenshot otherScreenshot) {
+        return ImageSimilarityComparator.computeSimilarity(baseScreenshot, otherScreenshot);
+    }
+
+    /**
+     * @param screenshotRepository
+     *            the screenshotRepository to set
+     */
+    public void setScreenshotRepository(ScreenshotRepository screenshotRepository) {
+        this.screenshotRepository = screenshotRepository;
+    }
 
 }

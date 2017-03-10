@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-
 import cz.vse.kit.ssc.exception.FileSaveException;
 import cz.vse.kit.ssc.repository.Screenshot;
 

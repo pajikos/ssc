@@ -14,7 +14,11 @@ import cz.vse.kit.ssc.ResourceFile;
 import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
- * Test for {@link ImageScreenComparator}  command
+ * Test for {@link ImageScreenComparator} command
+ * <p>
+ * <a href="https://www.imagemagick.org/script/download.php">ImageMagick</a>
+ * command line utility needs to be installed.
+ *
  * @author pavel.sklenar
  *
  */
@@ -31,12 +35,9 @@ public class ImageScreenComparatorTest {
 
     private Screenshot screenshot1;
 
-    private ImageScreenComparator comparator;
-
     @Before
     public void setUp() throws Exception {
         screenshot1 = createScreenshot(image1);
-        comparator = new ImageScreenComparator();
     }
 
     /**
@@ -45,24 +46,19 @@ public class ImageScreenComparatorTest {
      * @throws IOException
      */
     private Screenshot createScreenshot(ResourceFile file) throws IOException {
-        Screenshot screenshot = new Screenshot();
-        screenshot.setId("test");
-        screenshot.setBrowserName("firefox");
-        screenshot.setCaptureDate(new Date());
-        screenshot.setPlatform(Platform.UNIX);
-        screenshot.setImageData(file.getContentAsBytes());
-        return screenshot;
+        return new Screenshot.ScreenshotBuilder().withId("test").withBrowserName("firefox").withCaptureDate(new Date())
+                .withPlatform(Platform.UNIX).withImageData(file.getContentAsBytes()).build();
     }
 
     @Test
     public void testCompare() throws Exception {
-        Screenshot result = comparator.compare(screenshot1, screenshot1, 0);
+        Screenshot result = ImageScreenComparator.compare(screenshot1, screenshot1, 0);
         assertArrayEquals(imageCompare.getContentAsBytes(), result.getImageData());
     }
 
     @Test
     public void testComposeDifference() throws Exception {
-        Screenshot result = comparator.composeDifference(screenshot1, screenshot1, false);
+        Screenshot result = ImageScreenComparator.composeDifference(screenshot1, screenshot1, false);
         assertArrayEquals(differenceImage.getContentAsBytes(), result.getImageData());
     }
 

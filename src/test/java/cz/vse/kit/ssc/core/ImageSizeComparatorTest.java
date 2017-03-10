@@ -16,6 +16,10 @@ import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
  * Test class for {@link ImageSizeComparator}
+ * <p>
+ * <a href="https://www.imagemagick.org/script/download.php">ImageMagick</a>
+ * command line utility needs to be installed.
+ *
  * @author pavel.sklenar
  *
  */
@@ -31,13 +35,10 @@ public class ImageSizeComparatorTest {
 
     private Screenshot screenshot2;
 
-    private ImageSizeComparator comparator;
-
     @Before
     public void setUp() throws Exception {
         screenshot1 = createScreenshot(image1);
         screenshot2 = createScreenshot(image2);
-        comparator = new ImageSizeComparator();
     }
 
     /**
@@ -46,36 +47,32 @@ public class ImageSizeComparatorTest {
      * @throws IOException
      */
     private Screenshot createScreenshot(ResourceFile file) throws IOException {
-        Screenshot screenshot = new Screenshot();
-        screenshot.setId("test");
-        screenshot.setBrowserName("firefox");
-        screenshot.setCaptureDate(new Date());
-        screenshot.setPlatform(Platform.UNIX);
-        screenshot.setImageData(file.getContentAsBytes());
-        return screenshot;
+        return new Screenshot.ScreenshotBuilder().withId("test").withBrowserName("firefox").withCaptureDate(new Date())
+                .withPlatform(Platform.UNIX).withImageData(file.getContentAsBytes()).build();
     }
-
 
     @Test
     public void testResizeImages2SameSize() throws Exception {
-        Screenshot resizedImages2SameSize = comparator.resizeImages2SameSize(screenshot1, screenshot2);
+        Screenshot resizedImages2SameSize = ImageSizeComparator.resizeImages2SameSize(screenshot1, screenshot2);
         assertEquals("300x300", new InfoImage(resizedImages2SameSize).getPageGeometry());
     }
 
     @Test
     public void testGetInfoAboutImage() throws Exception {
-        assertEquals("300x300", comparator.getInfoAboutImage(screenshot1).getPageGeometry());
+        assertEquals("300x300", ImageSizeComparator.getInfoAboutImage(screenshot1).getPageGeometry());
     }
 
     @Test
     public void testDoCropIfRequired() throws Exception {
-        Screenshot resizedImages2SameSize = comparator.doCropIfRequired(comparator.getInfoAboutImage(screenshot1), comparator.getInfoAboutImage(screenshot2));
+        Screenshot resizedImages2SameSize = ImageSizeComparator.doCropIfRequired(
+                ImageSizeComparator.getInfoAboutImage(screenshot1), ImageSizeComparator.getInfoAboutImage(screenshot2));
         assertEquals("300x300", new InfoImage(resizedImages2SameSize).getPageGeometry());
     }
 
     @Test
     public void testDoExtentIfRequired() throws Exception {
-        Screenshot resizedImages2SameSize = comparator.doExtentIfRequired(comparator.getInfoAboutImage(screenshot1), comparator.getInfoAboutImage(screenshot2));
+        Screenshot resizedImages2SameSize = ImageSizeComparator.doExtentIfRequired(ImageSizeComparator.getInfoAboutImage(screenshot1),
+                ImageSizeComparator.getInfoAboutImage(screenshot2));
         assertEquals("300x300", new InfoImage(resizedImages2SameSize).getPageGeometry());
     }
 

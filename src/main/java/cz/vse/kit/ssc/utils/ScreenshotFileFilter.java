@@ -68,9 +68,12 @@ public class ScreenshotFileFilter implements FilenameFilter {
             actualScreenshot.setBrowserName(parameters[3]);
         }
 
-        if (screenshot.getBrowserVersion() != null && parameters.length > MINIMUM_FILENAME_PARAMS) {
-            actualScreenshot.setBrowserVersion(parameters[4]);
+        if (parameters.length > MINIMUM_FILENAME_PARAMS) {
+            if (screenshot.getBrowserVersion() != null && !screenshot.getBrowserVersion().isEmpty()) {
+                actualScreenshot.setBrowserVersion(parameters[4]);
+            }
         }
+
 
         if (actualScreenshot.equals(screenshot)) {
             return true;

@@ -24,7 +24,6 @@ public final class Screenshot {
      * Dummy constructor
      */
     public Screenshot() {
-        // Do nothing
     }
 
     /**
@@ -196,6 +195,67 @@ public final class Screenshot {
         } else if (!platform.is(other.platform))
             return false;
         return true;
+    }
+
+    /**
+     * Builder class for {@link Screenshot}
+     * @author pavel.sklenar
+     *
+     */
+    public static class ScreenshotBuilder {
+        private String id;
+        private Platform platform;
+        private String browserName;
+        private String browserVersion = "";
+        private byte[] imageData;
+        private Date captureDate;
+
+        public ScreenshotBuilder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public ScreenshotBuilder withPlatform(Platform platform) {
+            this.platform = platform;
+            return this;
+        }
+
+        public ScreenshotBuilder withBrowserName(String browserName) {
+            this.browserName = browserName;
+            return this;
+        }
+
+        public ScreenshotBuilder withBrowserVersion(String browserVersion) {
+            this.browserVersion = browserVersion;
+            return this;
+        }
+
+        public ScreenshotBuilder withImageData(byte[] imageData) {
+            this.imageData = imageData;
+            return this;
+        }
+
+        public ScreenshotBuilder withCaptureDate(Date captureDate) {
+            this.captureDate = captureDate;
+            return this;
+        }
+
+        /**
+         * Create {@link Screenshot} from previously set parameters
+         * @return
+         */
+        public Screenshot build() {
+            Screenshot screenshot = new Screenshot();
+            screenshot.setBrowserName(browserName);
+            screenshot.setBrowserVersion(browserVersion);
+            screenshot.setCaptureDate(captureDate);
+            screenshot.setId(id);
+            screenshot.setPlatform(platform);
+            screenshot.setImageData(imageData);
+            return screenshot;
+        }
+
+
     }
 
 }

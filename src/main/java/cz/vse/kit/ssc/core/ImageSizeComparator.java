@@ -17,7 +17,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
  */
 class ImageSizeComparator {
 
-    protected ImageSizeComparator() {
+    private ImageSizeComparator() {
     }
 
     /**
@@ -28,7 +28,7 @@ class ImageSizeComparator {
      * @param screenshotToResize
      * @return
      */
-    protected Screenshot resizeImages2SameSize(Screenshot baseScreenshot, Screenshot screenshotToResize) {
+    protected static Screenshot resizeImages2SameSize(Screenshot baseScreenshot, Screenshot screenshotToResize) {
         if (baseScreenshot == null || screenshotToResize == null) {
             throw new IllegalArgumentException("Cannot resize a null screenshot.");
         }
@@ -45,7 +45,7 @@ class ImageSizeComparator {
      * @param screenshot
      * @return
      */
-    protected InfoImage getInfoAboutImage(Screenshot screenshot) {
+    protected static InfoImage getInfoAboutImage(Screenshot screenshot) {
         try {
             return new InfoImage(screenshot);
         } catch (InfoException e) {
@@ -61,7 +61,7 @@ class ImageSizeComparator {
      * @param screenshotToResizeInfo
      * @return
      */
-    protected Screenshot doCropIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
+    protected static Screenshot doCropIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
         Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
         try {
             int baseWidth = baseScreenshotInfo.getImageWidth();
@@ -85,7 +85,7 @@ class ImageSizeComparator {
      * @param screenshotToResizeInfo
      * @return
      */
-    protected Screenshot doExtentIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
+    protected static Screenshot doExtentIfRequired(InfoImage baseScreenshotInfo, InfoImage screenshotToResizeInfo) {
         Screenshot resultScreenshot = screenshotToResizeInfo.getScreenshot();
         try {
             int baseWidth = baseScreenshotInfo.getImageWidth();
