@@ -33,12 +33,6 @@ public class SscFilenameUtilsTest {
     }
 
     @Test
-    public void testSetMaxFilenameLength() throws Exception {
-        SscFilenameUtils.setMaxFilenameLength(140);
-        assertEquals(140, SscFilenameUtils.getMaxFilenameLength());
-    }
-
-    @Test
     public void testHaveIllegalCharToFilename() throws Exception {
         assertTrue(SscFilenameUtils.haveIllegalCharToFilename("*.png"));
         assertTrue(SscFilenameUtils.haveIllegalCharToFilename("test?.png"));

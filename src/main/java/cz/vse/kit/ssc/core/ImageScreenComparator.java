@@ -10,6 +10,11 @@ import cz.vse.kit.ssc.im4java.CompositeImage;
 import cz.vse.kit.ssc.im4java.ConvertImage;
 import cz.vse.kit.ssc.repository.Screenshot;
 
+/**
+ * Class possible to compare {@link Screenshot}
+ * @author pavel.sklenar
+ *
+ */
 class ImageScreenComparator {
 
 

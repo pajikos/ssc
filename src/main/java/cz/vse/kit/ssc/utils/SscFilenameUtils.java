@@ -18,7 +18,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
  */
 public final class SscFilenameUtils {
     public static final String IMAGE_EXTENSION = ".png";
-    private static int maxLengthFileName = 255;
+    private static final int maxLengthFileName = 255;
     public static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t', '\0', '\f', '`', '?', '*', '\\', '<', '>',
             '|', '\"', ':', '_' };
     public static final String PARAMETR_DELIMITER = "_";
@@ -28,21 +28,6 @@ public final class SscFilenameUtils {
 
     public static int getMaxFilenameLength() {
         return maxLengthFileName;
-    }
-
-    /**
-     * Set max filename length
-     * <p>
-     * Input parameter must be positive number, i.e.: (0,
-     * {@link Integer#MAX_VALUE}>
-     *
-     * @param max
-     */
-    public static void setMaxFilenameLength(int max) {
-        if (max <= 0) {
-            throw new FilenameException("Max length of file name should be positive number.");
-        }
-        maxLengthFileName = max;
     }
 
     /**

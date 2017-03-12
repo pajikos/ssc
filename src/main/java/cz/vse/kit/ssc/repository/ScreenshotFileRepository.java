@@ -37,17 +37,6 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
         this.dir = dir.toFile();
     }
 
-    /**
-     * Constructor
-     *
-     * @param path
-     * @param maxLengthOfFilename
-     */
-    public ScreenshotFileRepository(String path, int maxLengthOfFilename) {
-        createDir(path);
-        setMaxLengthOfFilename(maxLengthOfFilename);
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -211,14 +200,6 @@ public class ScreenshotFileRepository implements ScreenshotRepository {
         screenshot.setPlatform(desiredCapabilities.getPlatform());
         screenshot.setId(id);
         return getScreenshotsByExample(screenshot);
-    }
-
-    /**
-     * @param maxLengthOfFilename
-     *            the maxLengthOfFilename to set
-     */
-    private void setMaxLengthOfFilename(int maxLengthOfFilename) {
-        SscFilenameUtils.setMaxFilenameLength(maxLengthOfFilename);
     }
 
     /**
