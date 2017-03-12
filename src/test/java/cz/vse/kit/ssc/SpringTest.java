@@ -34,7 +34,7 @@ public class SpringTest {
     private ScreenshotRepository repository;
     private CompatibilityTester compatibilityTester;
     private WebDriver driver;
-    private static final String BASE_URL = "https://www.vse.cz";
+    private static final String BASE_URL = "http://www.example.org";
     private Path outputDirectory;
 
     @Before

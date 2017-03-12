@@ -13,6 +13,7 @@ import cz.vse.kit.ssc.repository.Screenshot;
 
 /**
  * Test class for {@link SscFilenameUtils}
+ *
  * @author pavel.sklenar
  *
  */
@@ -22,11 +23,8 @@ public class SscFilenameUtilsTest {
 
     @Before
     public void setup() throws IOException {
-        screenshot = new Screenshot();
-        screenshot.setId("test");
-        screenshot.setBrowserName("firefox");
-        screenshot.setCaptureDate(new Date());
-        screenshot.setPlatform(Platform.UNIX);
+        screenshot = new Screenshot.ScreenshotBuilder().withId("test").withBrowserName("firefox")
+                .withCaptureDate(new Date()).withPlatform(Platform.UNIX).withImageData("TEST".getBytes()).withBrowserVersion("46").build();
     }
 
     @Test
@@ -51,23 +49,13 @@ public class SscFilenameUtilsTest {
     }
 
     @Test
-    public void testGetPrettyPrintIllegalChar() throws Exception {
-        throw new RuntimeException("not yet implemented");
-    }
-
-    @Test
-    public void testReadByteArrayFromFile() throws Exception {
-        throw new RuntimeException("not yet implemented");
-    }
-
-    @Test
     public void testGetFilename() throws Exception {
-        throw new RuntimeException("not yet implemented");
+        assertEquals("test_"+ screenshot.getCaptureDate().getTime() + "_UNIX_firefox_46.png", SscFilenameUtils.getFilename(screenshot));
     }
 
     @Test
     public void testLoadScreenshotInfoFromFilename() throws Exception {
-        throw new RuntimeException("not yet implemented");
+        assertEquals(screenshot, SscFilenameUtils.loadScreenshotInfoFromFilename("test_" + screenshot.getCaptureDate().getTime() + "_UNIX_firefox_46.png"));
     }
 
 }

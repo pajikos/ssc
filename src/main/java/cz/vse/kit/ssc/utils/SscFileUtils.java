@@ -3,9 +3,11 @@ package cz.vse.kit.ssc.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import cz.vse.kit.ssc.exception.FileReadException;
 import cz.vse.kit.ssc.exception.FileSaveException;
 import cz.vse.kit.ssc.repository.Screenshot;
 
@@ -81,6 +83,20 @@ public final class SscFileUtils {
      */
     public static String saveScreenshotToFile(Screenshot screenshot, String directory) {
         return saveScreenshotToFile(screenshot, directory, null);
+    }
+
+    /**
+     * Read the {@link File} to the byte array
+     *
+     * @param file
+     * @return
+     */
+    public static byte[] readByteArrayFromFile(File file) {
+        try {
+            return Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            throw new FileReadException("Can't read from the file " + file.getAbsolutePath(), e);
+        }
     }
 
 }

@@ -1,16 +1,13 @@
 package cz.vse.kit.ssc.utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.openqa.selenium.Platform;
 
-import cz.vse.kit.ssc.exception.FileReadException;
 import cz.vse.kit.ssc.exception.FilenameException;
 import cz.vse.kit.ssc.repository.Screenshot;
 
@@ -71,20 +68,6 @@ public final class SscFilenameUtils {
 
     public static String getPrettyPrintIllegalChar() {
         return Arrays.toString(ILLEGAL_CHARACTERS);
-    }
-
-    /**
-     * Read the {@link File} to the byte array
-     *
-     * @param file
-     * @return
-     */
-    public static byte[] readByteArrayFromFile(File file) {
-        try {
-            return FileUtils.readFileToByteArray(file);
-        } catch (IOException e) {
-            throw new FileReadException("Can't read from the file " + file.getAbsolutePath(), e);
-        }
     }
 
     /**

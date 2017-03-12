@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cz.vse.kit.ssc.core.CompatibilityTester;
 import cz.vse.kit.ssc.repository.Screenshot;
@@ -114,7 +115,7 @@ public class CompatibilityTesterTestIntegration extends AbstractRealBrowserTest 
      * @throws Exception
      */
     @Test
-    public void testGetLastScreenshotsByIdAndCompositeDifference() throws Exception {
+    public void testGetLastScreenshotsAndCompositeDifference() throws Exception {
         CompatibilityTester compatibilityTester = new CompatibilityTester(outputDirectory);
         driver.get(BASE_URL);
         compatibilityTester.takeScreenshotAndSaveToRepo("home", driver);
@@ -123,7 +124,7 @@ public class CompatibilityTesterTestIntegration extends AbstractRealBrowserTest 
         compatibilityTester.takeScreenshotAndSaveToRepo("test", driver);
         ScreenshotRepository repository = compatibilityTester.getScreenshotRepository();
 
-        List<Screenshot> screenshotsById = repository.getLastTwoScreenshotsById("home");
+        List<Screenshot> screenshotsById = repository.getScreenshotsByDesiredCapabilities(DesiredCapabilities.firefox());
         assertEquals(2, screenshotsById.size());
 
         assertNotNull(compatibilityTester.compositeDifference(screenshotsById.get(0), screenshotsById.get(1)));
