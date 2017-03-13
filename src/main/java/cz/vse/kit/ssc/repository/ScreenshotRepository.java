@@ -100,6 +100,6 @@ public interface ScreenshotRepository {
 	 *            The unique identifier of {@link Screenshot}
 	 * @return {@link List} with result ({@link Screenshot})
 	 */
-	public List<Screenshot> getLastTwoScreenshotById(String id);
+	public List<Screenshot> getLastTwoScreenshotsById(String id);
 
 }

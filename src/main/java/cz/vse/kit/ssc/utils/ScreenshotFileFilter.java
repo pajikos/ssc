@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package cz.vse.kit.ssc.utils;
 
@@ -15,67 +15,70 @@ import cz.vse.kit.ssc.repository.Screenshot;
 /**
  * Filter for searching screenshots on the file system
  * @author pavel.sklenar
- * 
+ *
  */
 public class ScreenshotFileFilter implements FilenameFilter {
-	private static final int FILENAME_NUMER_PARAMS = 5;
+    private static final int MINIMUM_FILENAME_PARAMS = 4;
 
-	private static final String ACCEPT_FILENAME_EXTENSION = ".png";
-	
-	private Screenshot screenshot;
+    private static final String ACCEPT_FILENAME_EXTENSION = ".png";
 
-	public ScreenshotFileFilter(Screenshot findScreenshot) {
-		this.screenshot = findScreenshot;
-	}
+    private Screenshot screenshot;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
-	 */
-	@Override
-	public boolean accept(File dir, String filename) {
-		if (!(new File(dir + File.separator + filename)).isFile()){
-			return false;
-		}
-		// needed only screenshots from the actual dir
-		if (!filename.endsWith(ACCEPT_FILENAME_EXTENSION)) {
-			return false;
-		}
-		
-		String filenameWithoutExtension = FilenameUtils.removeExtension(filename);
-		String[] parametrs = filenameWithoutExtension.split(SscFilenameUtils.PARAMETR_DELIMITER);
-		// if actual file hasn't all parameters in his name
-		if (parametrs.length != FILENAME_NUMER_PARAMS) {
-			return false;
-		}
-		Screenshot actualScreenshot = new Screenshot();
-		
-		if (screenshot.getId() != null){
-			actualScreenshot.setId(parametrs[0]);
-		}
-		
-		if (screenshot.getCaptureDate() != null){
-			actualScreenshot.setCaptureDate(new Date(Long.valueOf(parametrs[1])));
-		}
-		
-		if (screenshot.getPlatform() != null) {
-			actualScreenshot.setPlatform(Platform.valueOf(parametrs[2]));
-		}
-		
-		
-		if (screenshot.getBrowserName() != null){
-			actualScreenshot.setBrowserName(parametrs[3]);
-		}
-		
-		if (screenshot.getBrowserVersion() != null) {
-			actualScreenshot.setBrowserVersion(parametrs[4]);
-		}
+    public ScreenshotFileFilter(Screenshot findScreenshot) {
+        this.screenshot = findScreenshot;
+    }
 
-		if (actualScreenshot.equals(screenshot)) {
-			return true;
-		} else
-			return false;
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
+     */
+    @Override
+    public boolean accept(File dir, String filename) {
+        if (!(new File(dir + File.separator + filename)).isFile()){
+            return false;
+        }
+        // needed only screenshots from the actual dir
+        if (!filename.endsWith(ACCEPT_FILENAME_EXTENSION)) {
+            return false;
+        }
 
-	}
+        String filenameWithoutExtension = FilenameUtils.removeExtension(filename);
+        String[] parameters = filenameWithoutExtension.split(SscFilenameUtils.PARAMETR_DELIMITER);
+        // if actual file hasn't all parameters in his name
+        if (parameters.length < MINIMUM_FILENAME_PARAMS) {
+            return false;
+        }
+        Screenshot actualScreenshot = new Screenshot();
+
+        if (screenshot.getId() != null){
+            actualScreenshot.setId(parameters[0]);
+        }
+
+        if (screenshot.getCaptureDate() != null){
+            actualScreenshot.setCaptureDate(new Date(Long.valueOf(parameters[1])));
+        }
+
+        if (screenshot.getPlatform() != null) {
+            actualScreenshot.setPlatform(Platform.valueOf(parameters[2]));
+        }
+
+
+        if (screenshot.getBrowserName() != null){
+            actualScreenshot.setBrowserName(parameters[3]);
+        }
+
+        if (parameters.length > MINIMUM_FILENAME_PARAMS) {
+            if (screenshot.getBrowserVersion() != null && !screenshot.getBrowserVersion().isEmpty()) {
+                actualScreenshot.setBrowserVersion(parameters[4]);
+            }
+        }
+
+
+        if (actualScreenshot.equals(screenshot)) {
+            return true;
+        } else
+            return false;
+
+    }
 }

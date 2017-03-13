@@ -23,38 +23,38 @@ import cz.vse.kit.ssc.utils.SscFilenameUtils;
 
 /**
  * Example test with spring
- * 
+ *
  * @author pavel.sklenar
- * 
+ *
  */
 @ContextConfiguration("file:src/test/resources/testContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringTest {
-	@Autowired
-	private ScreenshotRepository repository;
-	private CompatibilityTester compatibilityTester;
-	private WebDriver driver;
-	private static final String BASE_URL = "https://www.vse.cz/";
-	private Path outputDirectory;
+    @Autowired
+    private ScreenshotRepository repository;
+    private CompatibilityTester compatibilityTester;
+    private WebDriver driver;
+    private static final String BASE_URL = "http://www.example.org";
+    private Path outputDirectory;
 
-	@Before
-	public void setUp() throws Exception {
-		compatibilityTester = new CompatibilityTester();
-		compatibilityTester.setScreenshotRepository(repository);
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		outputDirectory = Files.createTempDirectory("SPRING_TEST");
-	}
+    @Before
+    public void setUp() throws Exception {
+        compatibilityTester = new CompatibilityTester();
+        compatibilityTester.setScreenshotRepository(repository);
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        outputDirectory = Files.createTempDirectory("SPRING_TEST");
+    }
 
-	@Test
-	public void saveScreenshotToFile() {
-		driver.get(BASE_URL);
-		Screenshot screenshot = compatibilityTester.takeScreenshotAndSaveToRepo("springTest", driver);
-		assertTrue(Files.exists(outputDirectory.resolve(SscFilenameUtils.getFilename(screenshot))));
-	}
+    @Test
+    public void saveScreenshotToFile() {
+        driver.get(BASE_URL);
+        Screenshot screenshot = compatibilityTester.takeScreenshotAndSaveToRepo("springTest", driver);
+        assertTrue(Files.exists(outputDirectory.resolve(SscFilenameUtils.getFilename(screenshot))));
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+    @After
+    public void tearDown() throws Exception {
+        driver.quit();
+    }
 }
