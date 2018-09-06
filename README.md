@@ -24,13 +24,11 @@ Add project dependency into project pom.xml file:
   <version>0.1-SNAPSHOT</version> <scope>test</scope> 
 </dependency>
 ```
-
 ### Installation ImageMagick
 
 For using comparator capabilities, you need to install ImageMagick into your operation system. You can download installation file from the official project page [ImageMagick Binary Releases](http://www.imagemagick.org/script/binary-releases.php). It is available for Unix, Mac OS X, iOS, Windows.
 
 ### Adding PATH into your system enviroment
-
 The library need to know, how to run ImageMagick, so you need to set enviroment variable with name IM4JAVA_TOOLPATH with value as path to your ImageMagick installation folder, for example C:\Program Files\ImageMagick-6.8.0-Q16.
 
 If you can not set this variable, you can set the path in source code: 
@@ -39,7 +37,6 @@ String myPath="C:\\Programs\\ImageMagick";
 ProcessStarter.setGlobalSearchPath(myPath);
 
 ```
-
 ## Basic Use of The Library
 
 Library uses Selenium for interacting with web pages. So the you do not have to learn new syntax. All functionality is available through Compatibility Tester class.
@@ -56,7 +53,7 @@ FirefoxDriver driver = new FirefoxDriver();
 ```
 driver.get("http://www.vse.cz/");
 ```
-###Take a new screenshot and save to a local variable (value "home" is a unique indentifier of screenshot):
+### Take a new screenshot and save to a local variable (value "home" is a unique indentifier of screenshot):
 ```
 Screenshot screenshot = compatibilityTester.takeScreenshot("home", driver);
 ```
@@ -64,7 +61,7 @@ Screenshot screenshot = compatibilityTester.takeScreenshot("home", driver);
 ```
 compatibilityTester.saveScreenshotToFile(screenshot, "D:/temp/ssc");
 ```
-##Using Screenshot Repository
+## Using Screenshot Repository
 You can use The Screenshot Repository capability for automatic saving taked screenshots. At first you need to set the path, where save new screenshots. It exist's two possible ways:
 
 The first way:
@@ -75,26 +72,26 @@ The second way:
 ```
 compatibilityTester.setScreenshotRepository(new ScreenshotFileRepository("D:/temp/ssc"));
 ```
-Now you can call simply method takeScreenshotAndSaveToRepo:
+### Now you can call simply method takeScreenshotAndSaveToRepo:
 ```
 compatibilityTester.takeScreenshotAndSaveToRepo("home", driver);
 ```
-After that, you may need to search in saved screenshots. The Screenshot Repository has capabilities for getting required screenshots. The searching is based on a Query By Example principle.
+### After that, you may need to search in saved screenshots. The Screenshot Repository has capabilities for getting required screenshots. The searching is based on a Query By Example principle.
 ```
 ScreenshotRepository repository = compatibilityTester.getScreenshotRepository();
 Screenshot queryScreenshot = new Screenshot();
 queryScreenshot.setBrowserName("firefox");
 queryScreenshot.setId("home");
 ```
-Getting the last screenshot, that corresponds with query object:
+### Getting the last screenshot, that corresponds with query object:
 ```
 Screenshot screenshot = repository.getLastScreenshotByExample(queryScreenshot);
 ```
-Getting the last two screnshots in timeline:
+### Getting the last two screnshots in timeline:
 ```
 List<Screenshot> lastTwoScreens = repository.getLastTwoScreenshotsByExample(queryScreenshot);
 ```
-Getting the all screenshots, that meet the request criteria:
+### Getting the all screenshots, that meet the request criteria:
 ```
 List listOfScreens = repository.getScreenshotsByExample(queryScreenshot);
 ```
@@ -123,5 +120,5 @@ This method returns the value between 0 and 1 (0 means no compliance, 1 means th
 
 ## License
 
-This project is licensed under the licence-lgpl-3.0 - see the [LICENSE.md](licence-lgpl-3.0.txt) file for details
+This project is licensed under the licence-lgpl-3.0 - see the [licence-lgpl-3.0.txt](licence-lgpl-3.0.txt) file for details
 
