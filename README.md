@@ -1,20 +1,20 @@
 # Selenium Screenshot Comparator
 
-The Selenium Screenshot Comparator (SSC) could compare any of two web pages in different browsers and capture their differences not only graphically, but also numerically. Library uses public available tools for its functionality (Selenium, Imagemagick).
+The Selenium Screenshot Comparator (SSC) could compare any of two web pages in different browsers and capture their differences not only graphically, but also numerically. Library uses publicly available tools for its functionality (Selenium, ImageMagick).
 
-The contribution of this library is in a solution that, as the only one from similar tools available on the market, tries to automate the testing process compatibility of appearance of web applications.
+The contribution of this library is in a solution that, as the only one from similar tools available on the market, tries to automate the testing process compatibility of an appearance of web applications.
 
 ## The Library Installation Guide
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Adding the library in to your project
+### Adding the library into your project
 
 Download or build your own jar file and import into your maven repository:
 ```
 mvn install:install-file -Dfile=C:\path\to\file\selenium-screenshot-comparator-0.1.jar -DgroupId=cz.vse.kit.ssc -DartifactId=selenium-screenshot-comparator -Dversion=0.1 -DpomFile=C:\path\to\file\selenium-screenshot-comparator-0.1.pom -Dpackaging=jar
 ```
-Build folder contains two subfolders: build containing im4java library (im4java web page), because this utility library is not available in any public Maven repository. If you want to add your own im4java jar into your Maven, download build from folder without_im4java. In most cases the build containing im4java will be sufficient.
+Build folder contains two subfolders: build containing im4java library (im4java web page) because this utility library is not available in any public Maven repository. If you want to add your own im4java jar into your Maven, download a build from folder without_im4java. In most cases, the build containing im4java will be sufficient.
 
 Add project dependency into project pom.xml file: 
 ```
@@ -26,10 +26,10 @@ Add project dependency into project pom.xml file:
 ```
 ### Installation ImageMagick
 
-For using comparator capabilities, you need to install ImageMagick into your operation system. You can download installation file from the official project page [ImageMagick Binary Releases](http://www.imagemagick.org/script/binary-releases.php). It is available for Unix, Mac OS X, iOS, Windows.
+For using comparator capabilities, you need to install ImageMagick into your operating system. You can download the installation file from the official project page [ImageMagick Binary Releases](http://www.imagemagick.org/script/binary-releases.php). It is available for Unix, Mac OS X, iOS, Windows.
 
-### Adding PATH into your system enviroment
-The library need to know, how to run ImageMagick, so you need to set enviroment variable with name IM4JAVA_TOOLPATH with value as path to your ImageMagick installation folder, for example C:\Program Files\ImageMagick-6.8.0-Q16.
+### Adding PATH into your system environment
+The library needs to know, how to run ImageMagick, so you need to set the environment variable with name IM4JAVA_TOOLPATH with value as the path to your ImageMagick installation folder, for example, C:\Program Files\ImageMagick-6.8.0-Q16.
 
 If you can not set this variable, you can set the path in source code: 
 ```
@@ -37,9 +37,9 @@ String myPath="C:\\Programs\\ImageMagick";
 ProcessStarter.setGlobalSearchPath(myPath);
 
 ```
-## Basic Use of The Library
+## Basic Usage of The Library
 
-Library uses Selenium for interacting with web pages. So the you do not have to learn new syntax. All functionality is available through Compatibility Tester class.
+Library uses Selenium for interacting with web pages. So then you do not have to learn a new syntax. All functionality is available through Compatibility Tester class.
 
 ### Create a new instance of the main class:
 ```
@@ -104,14 +104,16 @@ driver.findElement(By.linkText("Profil školy")).click();
 Screenshot profilScreenshot = compatibilityTester.takeScreenshot("profil", driver);
 Screenshot compareResult = compatibilityTester.compare(homeScreenshot, profilScreenshot);
 ```
+[Example of screenshots](https://github.com/pajikos/ssc/wiki/Basic-Usage)
 ## The Screenshot comparing
 You can use another method composeDifference.
-
+[Example of screenshots](https://github.com/pajikos/ssc/wiki/Basic-Usage)
 ## Using Screenshot Similarity
-You can compute mathematical difference between two screenshots:
+You can compute a mathematical difference between two screenshots:
 ```
-float similarity = compatibilityTester.computeSimilarity(homeScreenshot, profilScreenshot);
+float similarity = compatibilityTester.computeSimilarity(homeScreenshot, profileScreenshot);
 ```
+[Example of screenshots](https://github.com/pajikos/ssc/wiki/Basic-Usage)
 This method returns the value between 0 and 1 (0 means no compliance, 1 means that both images are the same).
 
 ## Authors
@@ -120,5 +122,5 @@ This method returns the value between 0 and 1 (0 means no compliance, 1 means th
 
 ## License
 
-This project is licensed under the licence-lgpl-3.0 - see the [licence-lgpl-3.0.txt](licence-lgpl-3.0.txt) file for details
+This project is licensed under the licence-LGPL-3.0 - see the [licence-lgpl-3.0.txt](licence-lgpl-3.0.txt) file for details
 
